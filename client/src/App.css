@@ -1,0 +1,13 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.App {
+  background-image: linear-gradient(
+    63deg,
+    #ec5ef1 0%,
+    #2bd2ff 46%,
+    #2bff88 90%
+  );
+}

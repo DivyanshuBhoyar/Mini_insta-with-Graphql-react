@@ -1,10 +1,19 @@
 import React from "react";
+import FeedCard from "../components/FeedCard";
+import "../styles/homepage.css";
 
-export default function Homepage() {
+export default function HomePage() {
   return (
     <div>
-      <h2>From homepage</h2>
-      <h2>Add everything here</h2>
+      <div className="main">
+        <div className="container">
+          <div className="card-wrap">
+            <FeedCard />
+            <FeedCard />
+            <FeedCard />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

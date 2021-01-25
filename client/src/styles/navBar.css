@@ -1,0 +1,12 @@
+.navbar-wrap {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  padding: 0.4rem 6rem;
+
+  background-color: "white";
+}
+.nav-item-wrap {
+  display: flex;
+  flex-direction: row;
+}
