@@ -4,6 +4,8 @@ const commentResolvers = require("./commentResolvers");
 
 //exports from the resolvers package
 module.exports = {
+	//to reduce client side computation , count is calculated here ::optional
+
   //rsolvers for query of all types
   Query: {
     ...postsResolvers.Query,

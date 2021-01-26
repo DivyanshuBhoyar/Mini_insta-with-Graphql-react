@@ -43,10 +43,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FeedCard() {
+export default function FeedCard({ post }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
+  console.log(post);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -67,25 +67,27 @@ export default function FeedCard() {
             <MoreVertIconOutlined />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
+        title={post.username}
         subheader="September 14, 2016"
       />
       <CardMedia
         className={classes.media}
-        image="https://picsum.photos/400"
+        image={post.objectURL}
         title="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
+          {post.body}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIconOutlined />
+          <p style={{ fontSize: "12px", marginLeft: "2px" }}>17</p>
         </IconButton>
         <IconButton onClick={handleExpandClick} aria-label="share">
           <ModeCommentIconOutlined />
+          <p style={{ fontSize: "12px", marginLeft: "2px" }}>17</p>
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -113,24 +115,28 @@ export default function FeedCard() {
               <AddIcon size=" medium" />
             </IconButton>
           </Typography>
-          <Typography>
-            <div
-              className="comment"
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <Avatar
-                sizes="small"
-                src="https://uifaces.co/our-content/donated/N8kxcjRw.jpg"
-                style={{ width: "30px", height: "30px", marginRight: "0.8em" }}
-              />
-              <h4>Add rice </h4>
-              <DeleteIcon style={{ position: "absolute", right: "8px" }} />
-            </div>
-            <p style={{ marginLeft: "2.5rem" }}>
-              {" "}
-              and stir very gently to distribute. Top with artichokes and
-            </p>
-          </Typography>
+          {post.comments ??
+            post.comments.map((comment) => (
+              <Typography key={comment.id}>
+                <div
+                  className="comment"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <Avatar
+                    sizes="small"
+                    src="https://uifaces.co/our-content/donated/N8kxcjRw.jpg"
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      marginRight: "0.8em",
+                    }}
+                  />
+                  <h4>{comment.username} </h4>
+                  <DeleteIcon style={{ position: "absolute", right: "8px" }} />
+                </div>
+                <p style={{ marginLeft: "2.5rem" }}>{comment.body}</p>
+              </Typography>
+            ))}
         </CardContent>
       </Collapse>
     </Card>

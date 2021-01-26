@@ -4,18 +4,20 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
+// const link = createHttpLink({ });
+
 const client = new ApolloClient({
-  uri: "https://localhost:5000",
+  uri: "http://localhost:5000/",
   cache: new InMemoryCache(),
 });
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
+      <Router>
         <App />
-      </ApolloProvider>
-    </Router>
+      </Router>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
