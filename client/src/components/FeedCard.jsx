@@ -83,11 +83,15 @@ export default function FeedCard({ post }) {
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIconOutlined />
-          <p style={{ fontSize: "12px", marginLeft: "2px" }}>17</p>
+          <p style={{ fontSize: "12px", marginLeft: "2px" }}>
+            {post.likeCount}
+          </p>
         </IconButton>
         <IconButton onClick={handleExpandClick} aria-label="share">
           <ModeCommentIconOutlined />
-          <p style={{ fontSize: "12px", marginLeft: "2px" }}>17</p>
+          <p style={{ fontSize: "12px", marginLeft: "2px" }}>
+            {post.commentCount}
+          </p>
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>

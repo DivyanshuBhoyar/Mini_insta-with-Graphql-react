@@ -13,6 +13,7 @@ export default function HomePage() {
   if (error) {
     console.log(error);
   }
+
   return (
     <div>
       <div className="main">
@@ -23,7 +24,7 @@ export default function HomePage() {
             posts &&
             posts.map((post) => (
               <div className="card-wrap">
-                <FeedCard post={post} />
+                <FeedCard key={post.id} post={post} />
               </div>
             ))
           )}
@@ -39,6 +40,8 @@ const GET_POSTS = gql`
       createdAt
       username
       objectURL
+      commentCount
+      likeCount
       id
       body
       likes {
