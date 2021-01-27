@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { appStorage, timestamp } from "../config";
+import { appStorage, timestamp } from "./config";
 
 const useStorage = (file) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
-  const [url, setUrl] = useState(null);
+  const [URL, seturl] = useState(null);
 
   useEffect(() => {
     // references
@@ -24,12 +24,12 @@ const useStorage = (file) => {
         const url = await storageRef.getDownloadURL();
         // const createdAt = timestamp();
         // await collectionRef.add({ url, createdAt });
-        setUrl(url);
+        seturl(url);
       }
     );
   }, [file]);
 
-  return { progress, url, error };
+  return { progress, URL, error };
 };
 
 export default useStorage;

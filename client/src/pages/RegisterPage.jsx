@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { gql, useMutation } from "@apollo/client";
 import {
   InputLabel,
@@ -7,9 +7,13 @@ import {
   FilledInput,
   Button,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 import "../styles/loginpage.css";
 
 export default function RegisterPage(props) {
+  const context = useContext(AuthContext);
+
   const [Error, setError] = useState();
   const [values, setvalues] = useState({
     username: "",
@@ -25,20 +29,17 @@ export default function RegisterPage(props) {
 
   const [addUser, { loading, error }] = useMutation(REGISTER_USER, {
     update(proxy, result) {
-      console.log(result);
+      context.login(result.data.login); //since on registration -- we have to login on client
       props.history.push("/");
     },
     variables: values,
     onError(ApolloError) {
       setError(ApolloError);
-      console.log(error);
-      console.log(values);
     },
   });
 
   function onSubmit(e) {
     e.preventDefault();
-    console.log(values);
     addUser();
     //FEEDING VARIBLES FROM REACT TO GQL
   }
@@ -101,8 +102,23 @@ export default function RegisterPage(props) {
                 />
               </FormControl>{" "}
               <br />
-              <Button color="secondary" variant="contained" type="submit">
+              <Button color="primary" variant="contained" type="submit">
                 Submit
+              </Button>{" "}
+              <br />
+              <Button color="secondary" variant="contained">
+                <Link to="/auth/l">
+                  {" "}
+                  <p
+                    style={{
+                      color: "white",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {" "}
+                    Sign In Instead{" "}
+                  </p>{" "}
+                </Link>
               </Button>
             </form>
           </div>

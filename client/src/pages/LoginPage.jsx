@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
+import { AuthContext } from "../contexts/AuthContext";
 import {
   InputLabel,
   FormHelperText,
@@ -11,9 +12,9 @@ import "../styles/loginpage.css";
 
 export default function Loginpage(props) {
   const [Error, setError] = useState(null);
+  const context = useContext(AuthContext);
   const [values, setvalues] = useState({
     username: "",
-
     password: "",
   });
 
@@ -21,15 +22,16 @@ export default function Loginpage(props) {
     console.log(e.target.name);
     setvalues({ ...values, [e.target.name]: e.target.value });
   }
+
   const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
     update(proxy, result) {
-      console.log(result);
+      context.login(result.data.login);
       props.history.push("/");
     },
+
     variables: values,
     onError(ApolloError) {
       setError(ApolloError);
-      console.log(values);
     },
   });
 
@@ -37,6 +39,7 @@ export default function Loginpage(props) {
     e.preventDefault();
     loginUser();
   }
+
   return (
     <div className="main2">
       <div className="containerx container0">
