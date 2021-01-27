@@ -9,19 +9,21 @@ import {
 } from "@material-ui/core";
 import "../styles/loginpage.css";
 
-export default function Loginpage(props) {
-  const [Error, setError] = useState(null);
+export default function RegisterPage(props) {
+  const [Error, setError] = useState();
   const [values, setvalues] = useState({
     username: "",
-
+    email: "",
     password: "",
+    confirmPassword: "",
   });
 
   function handleChange(e) {
-    console.log(e.target.name);
+    console.log(e.target.name, values);
     setvalues({ ...values, [e.target.name]: e.target.value });
   }
-  const [loginUser, { loading, error }] = useMutation(LOGIN_USER, {
+
+  const [addUser, { loading, error }] = useMutation(REGISTER_USER, {
     update(proxy, result) {
       console.log(result);
       props.history.push("/");
@@ -29,13 +31,16 @@ export default function Loginpage(props) {
     variables: values,
     onError(ApolloError) {
       setError(ApolloError);
+      console.log(error);
       console.log(values);
     },
   });
 
   function onSubmit(e) {
     e.preventDefault();
-    loginUser();
+    console.log(values);
+    addUser();
+    //FEEDING VARIBLES FROM REACT TO GQL
   }
   return (
     <div className="main2">
@@ -43,14 +48,14 @@ export default function Loginpage(props) {
         <div className="containerx container1">
           <div className="containerx container2">
             <form style={{ opacity: 1 }} onSubmit={onSubmit}>
-              <div className="form-item"></div>{" "}
               <FormControl>
-                <InputLabel htmlFor="username">username </InputLabel>
+                <InputLabel htmlFor="email">Email address</InputLabel>
                 <FilledInput
-                  value={values.username}
                   onChange={handleChange}
-                  name="username"
+                  name="email"
                   variant="filled"
+                  type="email"
+                  color="secondary"
                   aria-describedby="my-helper-text"
                 />
                 <FormHelperText id="password">
@@ -59,11 +64,36 @@ export default function Loginpage(props) {
               </FormControl>{" "}
               <br />
               <FormControl>
+                <InputLabel htmlFor="username">username</InputLabel>
+                <FilledInput
+                  onChange={handleChange}
+                  name="username"
+                  color="secondary"
+                  variant="filled"
+                  type="username"
+                  aria-describedby="username"
+                />
+              </FormControl>{" "}
+              <br />
+              <FormControl>
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <FilledInput
-                  value={values.password}
-                  onChange={handleChange}
                   name="password"
+                  onChange={handleChange}
+                  color="secondary"
+                  variant="filled"
+                  type="password"
+                  aria-describedby="password"
+                />
+              </FormControl>{" "}
+              <br />
+              <FormControl>
+                <InputLabel htmlFor="confirmPassword">
+                  Confirm Password
+                </InputLabel>
+                <FilledInput
+                  name="confirmPassword"
+                  onChange={handleChange}
                   color="secondary"
                   variant="filled"
                   type="password"
@@ -72,7 +102,7 @@ export default function Loginpage(props) {
               </FormControl>{" "}
               <br />
               <Button color="secondary" variant="contained" type="submit">
-                Submit{" "}
+                Submit
               </Button>
             </form>
           </div>
@@ -81,12 +111,24 @@ export default function Loginpage(props) {
     </div>
   );
 }
-const LOGIN_USER = gql`
-  mutation login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
+
+const REGISTER_USER = gql`
+  mutation registerUser(
+    $email: String!
+    $username: String!
+    $password: String!
+    $confirmPassword: String!
+  ) {
+    registerUser(
+      email: $email
+      username: $username
+      password: $password
+      confirmPassword: $confirmPassword
+    ) {
       token
       username
       createdAt
+      email
     }
   }
 `;

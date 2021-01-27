@@ -1,0 +1,33 @@
+.containerx {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container0 {
+  padding: 3rem;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+.container1 {
+  padding: 2rem;
+  opacity: 0.4;
+
+  backdrop-filter: blur(5px);
+}
+.container2 {
+  background: none;
+  opacity: 1;
+  width: 30vw;
+  padding: 1.5rem;
+}
+form {
+  flex-direction: column;
+  display: flex;
+  width: 80%;
+  justify-content: space-evenly;
+}
+.main2 {
+  height: 95vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
