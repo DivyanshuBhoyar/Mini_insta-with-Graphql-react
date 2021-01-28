@@ -17,11 +17,11 @@ export default function ProgressBar({ file, setFile }) {
   const [url, seturl] = useContext(UrlContext);
   const classes = useStyles();
 
-  console.log(file);
+  // console.log(file);
 
   const { progress, URL } = useStorage(file);
 
-  console.log(URL);
+  // console.log(URL);
 
   useEffect(() => {
     if (URL) {
