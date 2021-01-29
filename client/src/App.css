@@ -4,19 +4,5 @@
   box-sizing: border-box;
 }
 .App {
-  background-image: linear-gradient(
-    to right,
-    #00e374,
-    #96c512,
-    #d19f00,
-    #f66e1d,
-    #ff355a,
-    #ff2f8c,
-    #ed46bf,
-    #c365eb,
-    #9585ff,
-    #5f9eff,
-    #21b0ff,
-    #00bfff
-  );
+  background-image: linear-gradient(to left, #00e374, #96c512, #d19f00, #f66e1d, #ff355a, #ff2f8c, #ed46bf, #c365eb, #9585ff, #5f9eff, #21b0ff, #00bfff);
 }

@@ -22,3 +22,17 @@ export const GET_POSTS = gql`
     }
   }
 `;
+export const CREATE_COMMENT = gql`
+  mutation createComment($postId: ID!, $body: String!) {
+    createComment(postId: $postId, body: $body) {
+      id
+      username
+      comments {
+        id
+        createdAt
+        body
+        username
+      }
+    }
+  }
+`;

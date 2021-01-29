@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 
 export default function LikeButton({ user, post }) {
-  console.log(user);
   const [liked, setLiked] = React.useState(false);
   const [likePost] = useMutation(LIKE_POST);
 

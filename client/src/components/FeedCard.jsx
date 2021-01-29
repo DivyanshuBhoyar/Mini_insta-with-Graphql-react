@@ -9,10 +9,7 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import Grow from "@material-ui/core/Grow";
 import { TextField } from "@material-ui/core";
 import ModeCommentIconOutlined from "@material-ui/icons/ModeComment";
 import DeleteIconOutlined from "@material-ui/icons/Delete";
@@ -20,6 +17,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import { AuthContext } from "../contexts/AuthContext";
 import LikeButton from "./LikeButton";
+import { CREATE_COMMENT } from "../utils/GraphQL";
+import { useMutation } from "@apollo/client";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,16 +46,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FeedCard({ post }) {
   const { user } = useContext(AuthContext);
-
+  const [comment, setComment] = React.useState("");
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   // console.log(post);
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  function handleCommentChange(e) {
+    setComment(e.target.value);
+    console.log(comment);
+  }
+  const [addComment] = useMutation(CREATE_COMMENT);
+
+  function handleComment(e) {
+    addComment({ variables: { postId: post.id, body: comment } });
+    setComment("");
+  }
+
   return (
- 
     <Card className={classes.root}>
       <CardHeader
         avatar={
@@ -78,15 +88,9 @@ export default function FeedCard({ post }) {
         title={post.username}
         subheader={moment(post.createdAt).fromNow(true) + " ago"}
       />
-      <CardMedia
-        className={classes.media}
-        image={post.objectURL}
-        title="Paella dish"
-      />
+      <CardMedia className={classes.media} image={post.objectURL} />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {post.body}
-        </Typography>
+        <h5> {post.body}</h5>
       </CardContent>
       <CardActions disableSpacing>
         <LikeButton user={user} post={post} />
@@ -97,38 +101,42 @@ export default function FeedCard({ post }) {
           </p>
         </IconButton>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={user && expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography>
-            <div
-              className="comment"
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <Avatar
-                sizes="small"
-                src="https://uifaces.co/our-content/donated/N8kxcjRw.jpg"
-                style={{ width: "30px", height: "30px", marginRight: "0.8em" }}
-              />
-              <h4>You </h4>
-        
-            </div>
-            <TextField
-              style={{ marginLeft: "2.5rem", width: "80%" }}
-              id="outlined-basic"
-              size="small"
-              variant="outlined"
+          <div
+            className="comment"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <Avatar
+              sizes="small"
+              src="https://uifaces.co/our-content/donated/N8kxcjRw.jpg"
+              style={{ width: "30px", height: "30px", marginRight: "0.8em" }}
             />
-            <IconButton>
-              <AddIcon size=" medium" />
-            </IconButton>
-          </Typography>
+            <h4>You </h4>
+          </div>
+          <TextField
+            style={{ marginLeft: "2.5rem", width: "80%" }}
+            id="outlined-basic"
+            size="small"
+            variant="outlined"
+            onChange={handleCommentChange}
+            value={comment}
+          />
+          <IconButton onClick={handleComment}>
+            <AddIcon size=" medium" />
+          </IconButton>
+
           {post.comments &&
             post.comments.map((comment) => (
-             <>
+              <>
                 <div
-                key={comment.id}
+                  key={comment.id}
                   className="comment"
-                  style={{ display: "flex", alignItems: "center" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginTop: "0.3em",
+                  }}
                 >
                   <Avatar
                     sizes="small"
@@ -140,14 +148,17 @@ export default function FeedCard({ post }) {
                     }}
                   />
                   <h4>{comment.username} </h4>
-                  <DeleteIcon style={{ position: "absolute", right: "8px" }} />
+                  {comment.username === user.username && (
+                    <DeleteIcon
+                      style={{ position: "absolute", right: "10px" }}
+                    />
+                  )}
                 </div>
                 <p style={{ marginLeft: "2.8rem" }}>{comment.body}</p>
-             </>
+              </>
             ))}
         </CardContent>
       </Collapse>
     </Card>
-
   );
 }
