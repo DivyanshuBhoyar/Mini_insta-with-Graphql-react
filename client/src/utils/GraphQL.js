@@ -17,6 +17,7 @@ export const GET_POSTS = gql`
         id
         username
         createdAt
+        body
       }
     }
   }

@@ -110,7 +110,7 @@ export default function FeedCard({ post }) {
                 style={{ width: "30px", height: "30px", marginRight: "0.8em" }}
               />
               <h4>You </h4>
-              <DeleteIcon style={{ position: "absolute", right: "8px" }} />
+        
             </div>
             <TextField
               style={{ marginLeft: "2.5rem", width: "80%" }}
@@ -124,8 +124,9 @@ export default function FeedCard({ post }) {
           </Typography>
           {post.comments &&
             post.comments.map((comment) => (
-              <Typography key={comment.id}>
+             <>
                 <div
+                key={comment.id}
                   className="comment"
                   style={{ display: "flex", alignItems: "center" }}
                 >
@@ -141,8 +142,8 @@ export default function FeedCard({ post }) {
                   <h4>{comment.username} </h4>
                   <DeleteIcon style={{ position: "absolute", right: "8px" }} />
                 </div>
-                <p style={{ marginLeft: "2.5rem" }}>{comment.body}</p>
-              </Typography>
+                <p style={{ marginLeft: "2.8rem" }}>{comment.body}</p>
+             </>
             ))}
         </CardContent>
       </Collapse>
