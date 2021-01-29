@@ -17,7 +17,12 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import { AuthContext } from "../contexts/AuthContext";
 import LikeButton from "./LikeButton";
-import { CREATE_COMMENT } from "../utils/GraphQL";
+import {
+  CREATE_COMMENT,
+  DELETE_COMMENT,
+  DELETE_POST,
+  GET_POSTS,
+} from "../utils/GraphQL";
 import { useMutation } from "@apollo/client";
 
 const useStyles = makeStyles((theme) => ({
@@ -66,6 +71,34 @@ export default function FeedCard({ post }) {
     setComment("");
   }
 
+  const [deletePost] = useMutation(DELETE_POST, {
+    update(proxy) {
+      const data = proxy.readQuery({
+        query: GET_POSTS,
+      });
+      let copyData = [...data.getPosts];
+      copyData = copyData.filter((p) => p.id !== post.id);
+      proxy.writeQuery({
+        query: GET_POSTS,
+        data: {
+          ...data,
+          getPosts: {
+            copyData,
+          },
+        },
+      });
+    },
+    onError(ApolloError) {
+      console.log(ApolloError);
+    },
+  });
+
+  const [deleteComment] = useMutation(DELETE_COMMENT, {
+    onError(ApolloError) {
+      console.log(ApolloError);
+    },
+  });
+
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -80,7 +113,10 @@ export default function FeedCard({ post }) {
         action={
           user &&
           user.username === post.username && (
-            <IconButton aria-label="delete">
+            <IconButton
+              onClick={() => deletePost({ variables: { postId: post.id } })}
+              aria-label="delete"
+            >
               <DeleteIconOutlined />
             </IconButton>
           )
@@ -90,7 +126,7 @@ export default function FeedCard({ post }) {
       />
       <CardMedia className={classes.media} image={post.objectURL} />
       <CardContent>
-        <h5> {post.body}</h5>
+        <h4> {post.body}</h4>
       </CardContent>
       <CardActions disableSpacing>
         <LikeButton user={user} post={post} />
@@ -112,7 +148,7 @@ export default function FeedCard({ post }) {
               src="https://uifaces.co/our-content/donated/N8kxcjRw.jpg"
               style={{ width: "30px", height: "30px", marginRight: "0.8em" }}
             />
-            <h4>You </h4>
+            <h5>You </h5>
           </div>
           <TextField
             style={{ marginLeft: "2.5rem", width: "80%" }}
@@ -147,9 +183,14 @@ export default function FeedCard({ post }) {
                       marginRight: "0.8em",
                     }}
                   />
-                  <h4>{comment.username} </h4>
-                  {comment.username === user.username && (
+                  <h5>{comment.username} </h5>
+                  {user && comment.username === user.username && (
                     <DeleteIcon
+                      onClick={() =>
+                        deleteComment({
+                          variables: { postId: post.id, commentId: comment.id },
+                        })
+                      }
                       style={{ position: "absolute", right: "10px" }}
                     />
                   )}

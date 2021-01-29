@@ -16,7 +16,7 @@ function App() {
         <NavBar />
         <Switch>
           <Route path="/" component={HomePage} exact></Route>
-          <Route path="/profile/:userId" component={ProfilePage} exact></Route>
+          <Route path="/profile/:name" component={ProfilePage} exact></Route>
           <AuthRoute path="/auth/l" component={LoginPage} exact></AuthRoute>
           <AuthRoute path="/auth/r" component={RegisterPage} exact></AuthRoute>
         </Switch>

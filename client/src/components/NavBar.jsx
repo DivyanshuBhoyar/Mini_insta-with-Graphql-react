@@ -7,8 +7,10 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { AuthContext } from "../contexts/AuthContext";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { Typography } from "@material-ui/core";
+import { Label } from "@material-ui/icons";
 
 export default function NavBar() {
+  console.log(window.location.pathname);
   const { user, logout } = useContext(AuthContext);
   return (
     <div>
@@ -50,7 +52,9 @@ export default function NavBar() {
                 <p>Logout</p>
               </div>
               <div className="me" style={{ margin: "0px 2rem" }}>
-                <AccountCircleIcon fontSize="small" />{" "}
+                <Link to={`profile/${user.username}`}>
+                  <AccountCircleIcon fontSize="small"></AccountCircleIcon>
+                </Link>
               </div>
             </>
           )}

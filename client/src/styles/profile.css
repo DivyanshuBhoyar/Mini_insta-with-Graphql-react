@@ -1,7 +1,7 @@
 .main-flx {
   width: 60vw;
   background: rgba(255, 255, 255, 0.5);
-
+  min-height: 95vh;
   display: flex;
   flex-direction: column;
   align-items: center;
