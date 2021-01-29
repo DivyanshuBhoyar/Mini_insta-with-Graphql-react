@@ -4,7 +4,9 @@ import "../styles/homepage.css";
 import { gql, useQuery } from "@apollo/client";
 import { AuthContext } from "../contexts/AuthContext";
 import NewPost from "../components/NewPost";
+
 import { UrlProvider } from "../contexts/urlContext";
+import { GET_POSTS } from "../utils/GraphQL.js";
 
 export default function HomePage() {
   const { user } = useContext(AuthContext);
@@ -35,9 +37,11 @@ export default function HomePage() {
             ) : (
               posts &&
               posts.map((post) => (
-                <div className="card-wrap">
-                  <FeedCard key={post.id} post={post} />
-                </div>
+               
+                  <div className="card-wrap">
+                    <FeedCard key={post.id} post={post} />
+                  </div>
+              
               ))
             )}
           </UrlProvider>
@@ -46,25 +50,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-const GET_POSTS = gql`
-  {
-    getPosts {
-      createdAt
-      username
-      objectURL
-      commentCount
-      likeCount
-      id
-      body
-      likes {
-        username
-      }
-      comments {
-        id
-        username
-        createdAt
-      }
-    }
-  }
-`;

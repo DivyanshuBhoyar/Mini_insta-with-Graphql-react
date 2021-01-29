@@ -21,7 +21,7 @@ export default function NavBar() {
         <div className="nav-item-wrap">
           {!user ? (
             <div className="auth" style={{ margin: "0px 2rem" }}>
-              <Link to="/auth/r">
+              <Link style={{ textDecoration: "none" }} to="/auth/r">
                 <div
                   style={{
                     display: "flex",
@@ -33,9 +33,6 @@ export default function NavBar() {
                   <p
                     style={{
                       marginRight: "0.6em",
-                      textDecoration: "none",
-
-                      fontFamily: "Roboto",
                     }}
                   >
                     Auth

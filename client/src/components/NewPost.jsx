@@ -58,7 +58,7 @@ export default function NewPost() {
         query: GET_POSTS,
       }); //Writing to local cache : the create post return values in the getposts cache data
       let newData = [...data.getPosts];
-      newData = [result.data.createPost, ...newData];
+      newData = [...newData, result.data.createPost];
       proxy.writeQuery({
         query: GET_POSTS,
         data: {
@@ -150,6 +150,10 @@ const CREATE_POST = gql`
       body
       createdAt
       username
+      comments {
+        id
+        username
+      }
     }
   }
 `;

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
+import moment from "moment";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -12,17 +12,19 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import FavoriteIconOutlined from "@material-ui/icons/Favorite";
+import Grow from "@material-ui/core/Grow";
 import { TextField } from "@material-ui/core";
 import ModeCommentIconOutlined from "@material-ui/icons/ModeComment";
-import MoreVertIconOutlined from "@material-ui/icons/MoreVert";
+import DeleteIconOutlined from "@material-ui/icons/Delete";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
+import { AuthContext } from "../contexts/AuthContext";
+import LikeButton from "./LikeButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "1.5em",
-    background: "rgba(255,255,255,0.4)",
+    background: "rgba(255,255,255,0.2)",
     backdropFilter: "blur(5px)",
   },
   media: {
@@ -44,14 +46,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FeedCard({ post }) {
+  const { user } = useContext(AuthContext);
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  console.log(post);
+  // console.log(post);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
+ 
     <Card className={classes.root}>
       <CardHeader
         avatar={
@@ -63,12 +68,15 @@ export default function FeedCard({ post }) {
           />
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIconOutlined />
-          </IconButton>
+          user &&
+          user.username === post.username && (
+            <IconButton aria-label="delete">
+              <DeleteIconOutlined />
+            </IconButton>
+          )
         }
         title={post.username}
-        subheader="September 14, 2016"
+        subheader={moment(post.createdAt).fromNow(true) + " ago"}
       />
       <CardMedia
         className={classes.media}
@@ -81,12 +89,7 @@ export default function FeedCard({ post }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIconOutlined />
-          <p style={{ fontSize: "12px", marginLeft: "2px" }}>
-            {post.likeCount}
-          </p>
-        </IconButton>
+        <LikeButton user={user} post={post} />
         <IconButton onClick={handleExpandClick} aria-label="share">
           <ModeCommentIconOutlined />
           <p style={{ fontSize: "12px", marginLeft: "2px" }}>
@@ -119,7 +122,7 @@ export default function FeedCard({ post }) {
               <AddIcon size=" medium" />
             </IconButton>
           </Typography>
-          {post.comments ??
+          {post.comments &&
             post.comments.map((comment) => (
               <Typography key={comment.id}>
                 <div
@@ -144,5 +147,6 @@ export default function FeedCard({ post }) {
         </CardContent>
       </Collapse>
     </Card>
+
   );
 }
