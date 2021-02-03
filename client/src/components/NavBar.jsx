@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import "../styles/navBar.css";
 import CodeIcon from "@material-ui/icons/Code";
@@ -51,6 +51,9 @@ export default function NavBar() {
               >
                 <p>Logout</p>
               </div>
+              <NavLink style={{ textDecoration: "none" }} to="/chatroom">
+                <p>Chat</p>
+              </NavLink>
               <div className="me" style={{ margin: "0px 2rem" }}>
                 <Link to={`profile/${user.username}`}>
                   <AccountCircleIcon fontSize="small"></AccountCircleIcon>
