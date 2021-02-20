@@ -11,7 +11,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:5000/",
+  uri: "https://insta-clone-backend-apollo.herokuapp.com",
 });
 // const link = createHttpLink({ });
 const authLink = setContext((_, { headers }) => {
