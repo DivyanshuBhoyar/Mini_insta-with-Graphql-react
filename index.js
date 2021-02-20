@@ -21,7 +21,7 @@ mongoose
   })
   .then(() => {
     console.log("MongoDB Atlas Connected");
-    return server.listen({ port: 5000 });
+    return server.listen({ port: process.env.PORT });
   })
   .then((res) => {
     console.log(`Apollo Server is up & running at ${res.url}`);
