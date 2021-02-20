@@ -6,8 +6,6 @@ import CodeIcon from "@material-ui/icons/Code";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { AuthContext } from "../contexts/AuthContext";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import { Typography } from "@material-ui/core";
-import { Label } from "@material-ui/icons";
 
 export default function NavBar() {
   console.log(window.location.pathname);

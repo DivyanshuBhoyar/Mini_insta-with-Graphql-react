@@ -1,6 +1,6 @@
 import "../styles/profile.css";
 import React from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { AuthContext } from "../contexts/AuthContext";
 import { useParams } from "react-router-dom";
 

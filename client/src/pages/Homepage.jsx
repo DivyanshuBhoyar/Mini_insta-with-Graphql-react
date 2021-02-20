@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import FeedCard from "../components/FeedCard";
 import "../styles/homepage.css";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { AuthContext } from "../contexts/AuthContext";
 import NewPost from "../components/NewPost";
 
@@ -37,11 +37,9 @@ export default function HomePage() {
             ) : (
               posts &&
               posts.map((post) => (
-               
-                  <div className="card-wrap">
-                    <FeedCard key={post.id} post={post} />
-                  </div>
-              
+                <div key={post.id} className="card-wrap">
+                  <FeedCard key={post.id} post={post} />
+                </div>
               ))
             )}
           </UrlProvider>

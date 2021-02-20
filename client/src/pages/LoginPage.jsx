@@ -48,7 +48,7 @@ export default function Loginpage(props) {
             <form style={{ opacity: 1 }} onSubmit={onSubmit}>
               <div className="form-item"></div>{" "}
               <FormControl>
-                <InputLabel htmlFor="username">username </InputLabel>
+                <InputLabel htmlFor="username"> Username </InputLabel>
                 <FilledInput
                   value={values.username}
                   onChange={handleChange}

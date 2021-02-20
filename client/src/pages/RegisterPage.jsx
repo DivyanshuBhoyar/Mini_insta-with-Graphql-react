@@ -50,7 +50,7 @@ export default function RegisterPage(props) {
           <div className="containerx container2">
             <form style={{ opacity: 1 }} onSubmit={onSubmit}>
               <FormControl>
-                <InputLabel htmlFor="email">Email address</InputLabel>
+                <InputLabel  htmlFor="email">{" "} Email address</InputLabel>
                 <FilledInput
                   onChange={handleChange}
                   name="email"
@@ -65,7 +65,7 @@ export default function RegisterPage(props) {
               </FormControl>{" "}
               <br />
               <FormControl>
-                <InputLabel htmlFor="username">username</InputLabel>
+                <InputLabel htmlFor="username">Username</InputLabel>
                 <FilledInput
                   onChange={handleChange}
                   name="username"

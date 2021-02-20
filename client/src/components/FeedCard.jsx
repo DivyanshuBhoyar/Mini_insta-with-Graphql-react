@@ -164,7 +164,7 @@ export default function FeedCard({ post }) {
 
           {post.comments &&
             post.comments.map((comment) => (
-              <>
+              <div key={comment.id}>
                 <div
                   key={comment.id}
                   className="comment"
@@ -196,7 +196,7 @@ export default function FeedCard({ post }) {
                   )}
                 </div>
                 <p style={{ marginLeft: "2.8rem" }}>{comment.body}</p>
-              </>
+              </div>
             ))}
         </CardContent>
       </Collapse>
