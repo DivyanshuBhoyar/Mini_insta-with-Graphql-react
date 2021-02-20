@@ -1,0 +1,18 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.App {
+  background-image: url(./cf582448388679.589cc55f07c92.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  /* background-image: linear-gradient(
+    to left,
+    #00e374,
+    #96c512,
+    #21b0ff,
+    #00bfff
+  ); */
+}
