@@ -20,5 +20,5 @@
   /* height: 100vh; */
 }
 .card-wrap {
-  width: min(600px, 99vw);
+  width: min(600px, 100vw);
 }

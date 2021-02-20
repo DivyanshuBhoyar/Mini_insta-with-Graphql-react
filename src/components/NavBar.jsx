@@ -6,6 +6,7 @@ import CodeIcon from "@material-ui/icons/Code";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { AuthContext } from "../contexts/AuthContext";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import {Button} from "@material-ui/core"
 
 export default function NavBar() {
   console.log(window.location.pathname);
@@ -15,29 +16,17 @@ export default function NavBar() {
       <div className="navbar-wrap">
         <div className="nav-item-wrap">
           <div className="brand">
-            <InstagramIcon fontSize="small" />
+            <InstagramIcon style={{color: "purple", fontSize: 35 }} />
           </div>
         </div>
         <div className="nav-item-wrap">
           {!user ? (
             <div className="auth" style={{ margin: "0px 2rem" }}>
               <Link style={{ textDecoration: "none" }} to="/auth/r">
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  {" "}
-                  <VpnKeyIcon fontSize="small" />
-                  <p
-                    style={{
-                      marginRight: "0.6em",
-                    }}
-                  >
-                    Auth
-                  </p>{" "}
-                </div>
+
+                  <Button  color="black" variant="contained" >
+                  <VpnKeyIcon  /> Auth </Button>
+
               </Link>
             </div>
           ) : (
@@ -47,25 +36,25 @@ export default function NavBar() {
                 className="auth"
                 style={{ margin: "0px 2rem" }}
               >
-                <p>Logout</p>
+                <Button  size = "small" color="purple" variant="outlined" >Logout</Button> 
               </div>
               <NavLink style={{ textDecoration: "none" }} to="/chatroom">
-                <p>Chat</p>
+              <Button  color="purple" size = "small" variant="outlined" >Chat</Button>
               </NavLink>
               <div className="me" style={{ margin: "0px 2rem" }}>
                 <Link to={`profile/${user.username}`}>
-                  <AccountCircleIcon fontSize="small"></AccountCircleIcon>
+                  <AccountCircleIcon style = {{fontSize:"25"}} ></AccountCircleIcon>
                 </Link>
               </div>
             </>
           )}
-
-          <div className="dev" style={{ margin: "0px 2rem" }}>
+<div className="dev" style={{ margin: "0px 2rem 0 0rem" }}>
             <Link to="/devpage">
-              {" "}
-              <CodeIcon fontSize="small" />{" "}
+           
+              <CodeIcon style={{color: "purple" ,fontSize: "25" }} />{" "}
             </Link>
           </div>
+          
         </div>
       </div>
     </div>

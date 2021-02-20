@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { AuthContext } from "../contexts/AuthContext";
+
 import {
   InputLabel,
   FormHelperText,
@@ -9,6 +10,8 @@ import {
   Button,
 } from "@material-ui/core";
 import "../styles/loginpage.css";
+
+
 
 export default function Loginpage(props) {
   const [Error, setError] = useState(null);
@@ -40,6 +43,7 @@ export default function Loginpage(props) {
     loginUser();
   }
 
+
   return (
     <div className="main2">
       <div className="containerx container0">
@@ -47,13 +51,15 @@ export default function Loginpage(props) {
           <div className="containerx container2">
             <form style={{ opacity: 1 }} onSubmit={onSubmit}>
               <div className="form-item"></div>{" "}
-              <FormControl>
+              <FormControl  >
                 <InputLabel htmlFor="username"> Username </InputLabel>
                 <FilledInput
                   value={values.username}
                   onChange={handleChange}
                   name="username"
                   variant="filled"
+              
+                  color = "black"
                   aria-describedby="my-helper-text"
                 />
                 <FormHelperText id="password">
