@@ -4,8 +4,8 @@
   box-sizing: border-box;
 }
 .App {
-  background-image: url(./cf582448388679.589cc55f07c92.jpg);
   background-repeat: no-repeat;
+  background-color:  #F5FAFA;
   background-size: cover;
 
   /* background-image: linear-gradient(
